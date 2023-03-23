@@ -6,36 +6,34 @@ public class NameGame_06 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        String winner = "";
-        int highestScore = Integer.MIN_VALUE;
+        String playerName = scanner.nextLine();
 
-        while (true) {
-            String name = scanner.nextLine();
-            if (name.equals("Stop")) {
-                break;
-            }
-            int score = 0;
-            String letters = scanner.nextLine();
-            for (int i = 0; i < letters.length(); i++) {
-                char letter = letters.charAt(i);
-                int number = scanner.nextInt();
-                scanner.nextLine();
-                if (number == letter || number == letter + 32 || number == letter - 32) {
-                    score += 10;
+        int bestScores = 0;
+        String bestPlayer = "";
+
+        while (!playerName.equals("Stop")) {
+            int nameLength = playerName.length();
+            int scores = 0;
+
+            for (int i = 0; i < nameLength; i++) {
+                char letter = playerName.charAt(i);
+                int number = Integer.parseInt(scanner.nextLine());
+
+                if (letter == number) {
+                    scores += 10;
                 } else {
-                    score += 2;
-                }
-            }
-            if (score > highestScore) {
-                highestScore = score;
-                winner = name;
-            } else if (score == highestScore) {
-                if (name.compareTo(winner) > 0) {
-                    winner = name;
+                    scores += 2;
                 }
             }
 
+            if (scores >= bestScores) {
+                bestScores = scores;
+                bestPlayer = playerName;
+            }
+
+            playerName = scanner.nextLine();
         }
-        System.out.println("The winner is " + winner + " with " + highestScore + " points!");
+
+        System.out.printf("The winner is %s with %d points!", bestPlayer, bestScores);
     }
 }
