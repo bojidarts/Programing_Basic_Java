@@ -10,34 +10,26 @@ public class TouristShop_ {
         String product = scanner.nextLine();
         double totalPrice = 0;
         int counter = 0;
-        double sumLeft = budget;
-        boolean flag = false;
-        double priceProduct = 0;
 
-        while (!product.equals("Stop")){
-             priceProduct = Double.parseDouble(scanner.nextLine());
 
-            if (priceProduct > sumLeft){
-                flag = true;
-                break;
-            }
+        while (!product.equals("Stop")) {
+           double priceProduct = Double.parseDouble(scanner.nextLine());
             counter++;
-            if (counter % 3 == 0){
+            if (counter % 3 == 0) {
                 priceProduct = priceProduct / 2;
             }
-
-            sumLeft -= priceProduct;
             totalPrice += priceProduct;
-
+            if (totalPrice > budget) {
+                double neededMoney = totalPrice - budget;
+                System.out.printf("You don't have enough money!%nYou need %.2f leva!", neededMoney);
+                break;
+            }
 
 
             product = scanner.nextLine();
         }
 
-        if (flag){
-            System.out.println("You don't have enough money!");
-            System.out.printf("You need %.2f leva!", Math.abs(sumLeft - priceProduct));
-        }else {
+        if (product.equals("Stop")) {
             System.out.printf("You bought %d products for %.2f leva.", counter, totalPrice);
         }
     }
